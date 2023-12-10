@@ -1,4 +1,14 @@
+/// A utility class for form validation, particularly for authentication purposes.
+///
+/// Contains static methods to validate email and password fields according to
+/// specified patterns and rules.
 class FormRegex {
+  /// Validates an email address for authentication forms.
+  ///
+  /// Checks if the email is non-empty and ends with 'gmail.com' or 'icloud.com'.
+  /// Returns an error message if the validation fails, or `null` if it passes.
+  ///
+  /// [value] is the email address to validate.
   static String? authValidateEmail(String? value) {
     if (value == null || value.isEmpty) {
       return 'Email cannot be empty';
@@ -10,6 +20,13 @@ class FormRegex {
     return null;
   }
 
+  /// Validates a password for authentication forms.
+  ///
+  /// Checks if the password is non-empty, at least 8 characters long, contains at least one
+  /// number, and at least one special character (among @, $, !, %, *, ?, or &).
+  /// Returns an error message if the validation fails, or `null` if it passes.
+  ///
+  /// [value] is the password to validate.
   static String? authValidatePassword(String? value) {
     if (value == null || value.isEmpty) {
       return 'Password cannot be empty';

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 
-import '../src.dart';
+import '../../src.dart';
 
 class LoginForm extends StatefulWidget {
   const LoginForm({super.key});
@@ -12,7 +12,9 @@ class LoginForm extends StatefulWidget {
 }
 
 class LoginFormState extends State<LoginForm> {
+  // Form key to manage form state
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  // Text editing controllers for email and password fields
   late final TextEditingController _emailController = TextEditingController();
   late final TextEditingController _passwordController =
       TextEditingController();
@@ -72,30 +74,10 @@ class LoginFormState extends State<LoginForm> {
             ),
           ),
           const Gap(24),
-          SizedBox(
-            width: double.infinity,
-            child: ElevatedButton(
-              onPressed: _isLoading ? null : _login,
-              style: Theme.of(context).blackSquareButtonStyle(),
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Text(_isLoading ? 'Loading' : 'Login'),
-              ),
-            ),
-          ),
-          const Gap(8),
-          SizedBox(
-            width: double.infinity,
-            child: TextButton(
-              onPressed: () {
-                Navigator.of(context).pushNamed('/forgot-password-page');
-              },
-              style: Theme.of(context).blackTextButtonStyle(),
-              child: const Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Text('Forgot Password?'),
-              ),
-            ),
+          AuthButton(
+            isLoading: _isLoading,
+            buttonText: _isLoading ? 'Loading' : 'Login',
+            onPressed: _login,
           ),
         ],
       ),

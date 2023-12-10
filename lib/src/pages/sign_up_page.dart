@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 
 import '../src.dart';
@@ -21,32 +20,14 @@ class SignUpPage extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Text(
-                  'Sign Up',
-                  style: TextStyle(
-                      fontSize: 40,
-                      fontWeight: FontWeight.bold,
-                      fontFamily: 'Staatliches',
-                      package: 'supaauth'),
+                const AuthHeader(title: 'Sign up!'),
+                const Gap(36),
+                const AuthSVGImage(
+                  assetName: 'assets/svg/undraw_sign_up_n6im.svg',
                 ),
                 const Gap(36),
-                SvgPicture.asset(
-                  'assets/svg/undraw_sign_up_n6im.svg',
-                  package: 'supaauth',
-                  width: 300,
-                ),
-                const Gap(36),
-                const Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text('Sign up with your email address.'),
-                      ],
-                    ),
-                  ],
+                const AuthPrompt(
+                  description: 'Sign up with your email address.',
                 ),
                 const Gap(24),
                 BlocConsumer<SupabaseAuthCubit, SupabaseAuthState>(
@@ -56,7 +37,6 @@ class SignUpPage extends StatelessWidget {
                         SnackBar(content: Text(state.message)),
                       );
                     } else if (state is SupabaseAuthAuthenticated) {
-                      // Handle navigation or actions after successful signup if needed
                       Navigator.of(context).pop(); // Example action
                     }
                   },
@@ -67,12 +47,9 @@ class SignUpPage extends StatelessWidget {
                     return const SignUpForm();
                   },
                 ),
-                TextButton(
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                  style: Theme.of(context).blackTextButtonStyle(),
-                  child: const Text('Cancel'),
+                AuthTextButton(
+                  text: 'Cancel',
+                  onPressed: () => Navigator.of(context).pop(),
                 ),
               ],
             ),

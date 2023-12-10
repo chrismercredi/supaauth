@@ -531,7 +531,7 @@ packages:
       path: ".."
       relative: true
     source: path
-    version: "0.0.1"
+    version: "0.0.1-alpha.1"
   supabase:
     dependency: transitive
     description:

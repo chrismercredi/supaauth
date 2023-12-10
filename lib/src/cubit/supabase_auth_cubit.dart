@@ -8,15 +8,28 @@ import '../src.dart';
 
 part 'supabase_auth_state.dart';
 
+/// [SupabaseAuthCubit] is a BLoC pattern class that manages the authentication states
+/// using the Supabase authentication system. It listens to authentication state changes
+/// and emits corresponding states for the UI to react accordingly.
+///
+/// Example:
+/// ```dart
+/// final supabaseRepository = SupabaseRepository();
+/// final supabaseAuthCubit = SupabaseAuthCubit(supabaseRepository: supabaseRepository);
+/// ```
 class SupabaseAuthCubit extends Cubit<SupabaseAuthState> {
   final SupabaseRepository supabaseRepository;
   StreamSubscription<AuthState>? _authSubscription;
 
+  /// Creates an instance of [SupabaseAuthCubit] with the given [supabaseRepository].
+  /// The initial state is [SupabaseAuthInitial].
   SupabaseAuthCubit({required this.supabaseRepository})
       : super(SupabaseAuthInitial()) {
     _init();
   }
 
+  /// Initializes the auth state based on the current user's state.
+  /// Subscribes to the auth state changes and emits respective states.
   void _init() {
     final user = supabaseRepository.getCurrentUser();
     if (user != null) {
@@ -41,21 +54,23 @@ class SupabaseAuthCubit extends Cubit<SupabaseAuthState> {
     );
   }
 
-  // Can be used for modal sheets
+  /// Triggers the sign-in state for modal sheets or user interactions.
   void showSignIn() {
     emit(SupabaseAuthSignIn());
   }
 
-  // Can be used for modal sheets
+  /// Triggers the sign-up state for modal sheets or user interactions.
   void showSignUp() {
     emit(SupabaseAuthSignUp());
   }
 
-  // Can be used for modal sheets
+  /// Triggers the forgot password state for modal sheets or user interactions.
   void showForgotPassword() {
     emit(SupabaseAuthForgotPassword());
   }
 
+  /// Handles the user sign-up process with the given [email] and [password].
+  /// Emits loading state during the process, and appropriate state upon completion or error.
   Future<void> signUp(String email, String password) async {
     try {
       emit(SupabaseAuthLoading());
@@ -72,6 +87,8 @@ class SupabaseAuthCubit extends Cubit<SupabaseAuthState> {
     }
   }
 
+  /// Handles the user sign-in process with the given [email] and [password].
+  /// Emits loading state during the process, and appropriate state upon completion or error.
   Future<void> signIn(String email, String password) async {
     try {
       emit(SupabaseAuthLoading());
@@ -88,6 +105,8 @@ class SupabaseAuthCubit extends Cubit<SupabaseAuthState> {
     }
   }
 
+  /// Handles the user sign-out process.
+  /// Emits unauthenticated state upon completion or error state in case of failure.
   Future<void> signOut() async {
     try {
       await supabaseRepository.signOut();
@@ -97,6 +116,8 @@ class SupabaseAuthCubit extends Cubit<SupabaseAuthState> {
     }
   }
 
+  /// Sends a password reset email to the given [email].
+  /// Emits a password reset state or an error state in case of failure.
   Future<void> resetPasswordForEmail(String email) async {
     try {
       emit(SupabaseAuthLoading());
@@ -108,6 +129,7 @@ class SupabaseAuthCubit extends Cubit<SupabaseAuthState> {
     }
   }
 
+  /// Overrides the close method to cancel any subscriptions before closing the cubit.
   @override
   Future<void> close() {
     _authSubscription?.cancel();

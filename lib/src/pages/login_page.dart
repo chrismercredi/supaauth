@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 
 import '../src.dart';
@@ -21,48 +20,20 @@ class LoginPage extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Text(
-                  'Login',
-                  style: TextStyle(
-                      fontSize: 40,
-                      fontWeight: FontWeight.bold,
-                      fontFamily: 'Staatliches',
-                      package: 'supaauth'),
+                const AuthHeader(
+                  title: 'Login',
                 ),
                 const Gap(24),
-                SvgPicture.asset(
-                  'assets/svg/undraw_login_re_4vu2.svg',
-                  package: 'supaauth',
-                  width: 300,
+                const AuthSVGImage(
+                  assetName: 'assets/svg/undraw_login_re_4vu2.svg',
                 ),
                 const Gap(24),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text('Need an account?'),
-                      ],
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        TextButton(
-                          onPressed: () {
-                            Navigator.of(context)
-                                .pushNamed(SignUpPage.routeName);
-                          },
-                          style: Theme.of(context).blackTextButtonStyle(),
-                          child: const Padding(
-                            padding: EdgeInsets.all(8.0),
-                            child: Text('Sign up!'),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
+                AuthPrompt(
+                  description: 'Need an account?',
+                  buttonText: 'Sign up!',
+                  onButtonPressed: () {
+                    Navigator.of(context).pushNamed(SignUpPage.routeName);
+                  },
                 ),
                 const Gap(16),
                 BlocConsumer<SupabaseAuthCubit, SupabaseAuthState>(
@@ -79,6 +50,16 @@ class LoginPage extends StatelessWidget {
                     }
                     return const LoginForm();
                   },
+                ),
+                const Gap(8),
+                SizedBox(
+                  width: double.infinity,
+                  child: AuthTextButton(
+                    text: 'Forgot Password?',
+                    onPressed: () {
+                      Navigator.of(context).pushNamed('/forgot-password-page');
+                    },
+                  ),
                 ),
               ],
             ),

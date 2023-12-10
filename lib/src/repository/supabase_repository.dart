@@ -2,39 +2,49 @@ import 'dart:async';
 
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-/// Thrown when an authentication error occurs in Supabase.
+/// Exception class for handling authentication errors in Supabase.
+///
+/// This class provides a structured way to handle and report authentication
+/// errors that occur during interactions with the Supabase authentication system.
 class SupabaseAuthException implements Exception {
-  /// A message describing the authentication error.
+  /// A descriptive message about the authentication error.
   final String message;
 
-  /// Creates a new SupabaseAuthException with the provided message.
+  /// Constructs a [SupabaseAuthException] with a specific error [message].
   SupabaseAuthException(this.message);
 
   @override
   String toString() => 'Authentication Error: $message';
 }
 
-/// A repository that interacts with Supabase authentication.
+/// Repository class for managing interactions with Supabase authentication services.
+///
+/// This class abstracts the details of interacting with the Supabase authentication API,
+/// providing a more straightforward and simplified interface for authentication operations.
 class SupabaseRepository {
-  /// The Supabase client used to interact with the Supabase API.
+  /// The Supabase client instance used for interacting with the Supabase services.
   final SupabaseClient client;
 
-  /// Creates a new SupabaseRepository with the provided Supabase client.
+  /// Constructs a [SupabaseRepository] with the given Supabase [client].
   SupabaseRepository({required this.client});
 
-  /// Returns the currently signed-in user, or `null` if no user is signed in.
+  /// Retrieves the currently authenticated user, if any.
+  ///
+  /// Returns `null` if no user is currently signed in.
   User? getCurrentUser() {
     return client.auth.currentUser;
   }
 
-  /// A stream of authentication state changes.
+  /// Returns a stream of authentication state changes.
+  ///
+  /// This stream can be listened to for real-time updates on the user's authentication state.
   Stream<AuthState> get onAuthStateChange {
     return client.auth.onAuthStateChange;
   }
 
-  /// Signs up a user with the given [email] and [password].
+  /// Signs up a new user with the provided [email] and [password].
   ///
-  /// Throws a [SupabaseAuthException] if the sign-up fails.
+  /// Throws a [SupabaseAuthException] if the sign-up process fails.
   Future<User?> signUp(
       {required String email, required String password}) async {
     try {
@@ -48,9 +58,10 @@ class SupabaseRepository {
     }
   }
 
-  /// Sends a password reset email to the given [email].
+  /// Initiates a password reset process for the given [email].
   ///
-  /// Throws a [SupabaseAuthException] if the password reset fails.
+  /// Sends a password reset email to the specified address.
+  /// Throws a [SupabaseAuthException] if unable to initiate the password reset.
   Future<void> resetPasswordForEmail({required String email}) async {
     try {
       await client.auth.resetPasswordForEmail(email);
@@ -59,9 +70,9 @@ class SupabaseRepository {
     }
   }
 
-  /// Signs in a user with the given [email] and [password].
+  /// Signs in a user using the specified [email] and [password].
   ///
-  /// Throws a [SupabaseAuthException] if the sign-in fails.
+  /// Throws a [SupabaseAuthException] if the sign-in process fails.
   Future<User?> signIn(
       {required String email, required String password}) async {
     try {
@@ -75,9 +86,9 @@ class SupabaseRepository {
     }
   }
 
-  /// Signs out the current user.
+  /// Signs out the currently authenticated user.
   ///
-  /// Throws a [SupabaseAuthException] if the sign-out fails.
+  /// Throws a [SupabaseAuthException] if the sign-out process fails.
   Future<void> signOut() async {
     try {
       await client.auth.signOut();

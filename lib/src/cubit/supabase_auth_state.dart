@@ -1,39 +1,27 @@
 part of 'supabase_auth_cubit.dart';
 
-/// Base class for authentication states.
+/// Represents the base class for all authentication states.
 ///
-/// All specific authentication states extend from this class.
-/// This design makes it easy to handle all authentication states in a
-/// consistent manner using the Bloc library.
-sealed class SupabaseAuthState extends Equatable {
+/// This abstract class acts as a foundation for various states
+/// in the authentication process. Extending this class ensures a consistent
+/// and predictable structure for all derived states.
+abstract class SupabaseAuthState extends Equatable {
   const SupabaseAuthState();
 
   @override
   List<Object> get props => [];
 }
 
-/// Initial authentication state.
+/// Represents the initial state of authentication.
 ///
-/// This state is emitted when the [SupabaseAuthCubit] is first created,
-/// before any authentication checks have been performed.
+/// This state is emitted immediately when the [SupabaseAuthCubit] is instantiated,
+/// indicating that the authentication status has not been determined yet.
 class SupabaseAuthInitial extends SupabaseAuthState {}
 
-/// Loading state for authentication processes.
+/// Represents the authenticated state of a user.
 ///
-/// This state is emitted whenever an asynchronous authentication operation,
-/// such as sign-up, sign-in, or sign-out, is in progress.
-class SupabaseAuthLoading extends SupabaseAuthState {}
-
-class SupabaseAuthSignIn extends SupabaseAuthState {}
-
-class SupabaseAuthSignUp extends SupabaseAuthState {}
-
-class SupabaseAuthForgotPassword extends SupabaseAuthState {}
-
-/// Authenticated state.
-///
-/// This state is emitted when a user is successfully authenticated.
-/// It contains the authenticated user.
+/// This state is emitted when a user successfully authenticates.
+/// It carries the authenticated [user] object for further use.
 class SupabaseAuthAuthenticated extends SupabaseAuthState {
   final User user;
 
@@ -43,16 +31,10 @@ class SupabaseAuthAuthenticated extends SupabaseAuthState {
   List<Object> get props => [user];
 }
 
-/// Unauthenticated state.
+/// Represents an error state in the authentication process.
 ///
-/// This state is emitted when a user is not authenticated.
-/// It could be the result of a sign-out operation or if no user is signed in.
-class SupabaseAuthUnauthenticated extends SupabaseAuthState {}
-
-/// Error state for authentication processes.
-///
-/// This state is emitted when an error occurs during an authentication operation.
-/// It contains a descriptive error message.
+/// Emitted when an error occurs during an authentication operation.
+/// Contains a [message] describing the error.
 class SupabaseAuthError extends SupabaseAuthState {
   final String message;
 
@@ -62,6 +44,31 @@ class SupabaseAuthError extends SupabaseAuthState {
   List<Object> get props => [message];
 }
 
+/// State for displaying the forgot password interface.
+///
+/// Emitted to prompt the UI to display a forgot password form or modal.
+class SupabaseAuthForgotPassword extends SupabaseAuthState {}
+
+/// Represents the loading state during authentication processes.
+///
+/// Emitted during any ongoing asynchronous authentication operation, such as
+/// signing in, signing up, or signing out, to indicate that the operation is in progress.
+class SupabaseAuthLoading extends SupabaseAuthState {}
+
+/// State for displaying the sign-in interface.
+///
+/// Emitted to prompt the UI to display a sign-in form or modal.
+class SupabaseAuthSignIn extends SupabaseAuthState {}
+
+/// State for displaying the sign-up interface.
+///
+/// Emitted to prompt the UI to display a sign-up form or modal.
+class SupabaseAuthSignUp extends SupabaseAuthState {}
+
+/// State indicating a password reset operation.
+///
+/// Emitted after a request to reset a password is made.
+/// Contains a [message] usually informing the user to check their email.
 class SupabaseAuthPasswordReset extends SupabaseAuthState {
   final String message;
 
@@ -70,3 +77,9 @@ class SupabaseAuthPasswordReset extends SupabaseAuthState {
   @override
   List<Object> get props => [message];
 }
+
+/// Represents the unauthenticated state of a user.
+///
+/// This state is emitted when a user is not authenticated,
+/// such as after logging out or when no user session is present.
+class SupabaseAuthUnauthenticated extends SupabaseAuthState {}
