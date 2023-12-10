@@ -1,15 +1,17 @@
 name: supaauth
+version: 0.0.1-alpha.1
 description: "A basic SupaBase auth package"
-version: 0.0.1
 homepage: https://github.com/chrismercredi
-publish_to: 
-
-# Use this command to run in GitHub codespace:
-# flutter run -d web-server --web-hostname=0.0.0.0 --web-port=3000
+repository: https://github.com/chrismercredi/supaauth
+publish_to:
+screenshots:
+  - path: screenshots/login_page.png
+    description: 'Login page'
+  - path: screenshots/sign_up_page.png
+    description: 'Sign up page'
 
 environment:
   sdk: '>=3.2.3 <4.0.0'
-  flutter: ">=1.17.0"
 
 dependencies:
   bloc: ^8.1.2
@@ -17,6 +19,7 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_bloc: ^8.1.3
+  flutter_svg: ^2.0.9
   gap: ^3.0.1
   supabase_flutter: ^1.10.25
 
@@ -26,3 +29,20 @@ dev_dependencies:
   flutter_lints: ^2.0.0
 
 flutter:
+  uses-material-design: true
+  assets:
+    - assets/
+    - assets/images/
+    - assets/svg/
+  
+  fonts: 
+    - family: Staatliches
+      fonts:
+        - asset: assets/fonts/Staatliches/Staatliches-Regular.ttf
+    - family: NotoSans
+      fonts:
+        - asset: assets/fonts/Noto_Sans/NotoSans-Italic-VariableFont_wdth,wght.ttf
+          style: italic
+        - asset: assets/fonts/Noto_Sans/NotoSans-VariableFont_wdth,wght.ttf
+          
+        

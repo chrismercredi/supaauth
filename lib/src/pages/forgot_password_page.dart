@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
 
 import '../src.dart';
@@ -38,14 +39,41 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
       appBar: AppBar(title: const Text('Forgot Password')),
       body: Center(
         child: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Gap(16),
-              Form(
-                key: _formKey,
-                child: Padding(
-                  padding: Theme.of(context).formColumnPadding,
+          child: Padding(
+            padding: Theme.of(context).formColumnPadding,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Text(
+                  'Forgot Password',
+                  style: TextStyle(
+                      fontSize: 40,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: 'Staatliches',
+                      package: 'supaauth'),
+                ),
+                const Gap(24),
+                SvgPicture.asset(
+                  'assets/svg/undraw_forgot_password_re_hxwm.svg',
+                  package: 'supaauth',
+                  width: 300,
+                ),
+                const Gap(24),
+                const Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text('''It happens. We'll help you reset it.'''),
+                      ],
+                    ),
+                  ],
+                ),
+                const Gap(24),
+                Form(
+                  key: _formKey,
                   child: Column(
                     children: [
                       TextFormField(
@@ -79,18 +107,17 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                             .infinity, // Make the button expand horizontally
                         child: TextButton(
                           onPressed: () {
-                            Navigator.of(context)
-                                .pushReplacementNamed('/login-page');
+                            Navigator.of(context).pop();
                           },
                           style: Theme.of(context).blackTextButtonStyle(),
-                          child: const Text('Login?'),
+                          child: const Text('Cancel'),
                         ),
                       ),
                     ],
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

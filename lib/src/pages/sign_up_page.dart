@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:gap/gap.dart';
 
 import '../src.dart';
 
@@ -12,9 +14,6 @@ class SignUpPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       key: const Key('sign-up-page'),
-      appBar: AppBar(
-        actions: const [],
-      ),
       body: Center(
         child: SingleChildScrollView(
           child: Padding(
@@ -22,6 +21,21 @@ class SignUpPage extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                const Text(
+                  'Sign Up',
+                  style: TextStyle(
+                      fontSize: 40,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: 'Staatliches',
+                      package: 'supaauth'),
+                ),
+                const Gap(36),
+                SvgPicture.asset(
+                  'assets/svg/undraw_sign_up_n6im.svg',
+                  package: 'supaauth',
+                  width: 300,
+                ),
+                const Gap(36),
                 const Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -29,12 +43,12 @@ class SignUpPage extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('Sign up!'),
-                        Text('Sign up with your email address'),
+                        Text('Sign up with your email address.'),
                       ],
                     ),
                   ],
                 ),
+                const Gap(24),
                 BlocConsumer<SupabaseAuthCubit, SupabaseAuthState>(
                   listener: (context, state) {
                     if (state is SupabaseAuthError) {
@@ -58,10 +72,7 @@ class SignUpPage extends StatelessWidget {
                     Navigator.of(context).pop();
                   },
                   style: Theme.of(context).blackTextButtonStyle(),
-                  child: const Padding(
-                    padding: EdgeInsets.all(16.0),
-                    child: Text('Cancel'),
-                  ),
+                  child: const Text('Cancel'),
                 ),
               ],
             ),

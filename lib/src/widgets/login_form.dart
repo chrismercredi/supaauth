@@ -92,7 +92,7 @@ class LoginFormState extends State<LoginForm> {
               },
               style: Theme.of(context).blackTextButtonStyle(),
               child: const Padding(
-                padding: EdgeInsets.all(16.0),
+                padding: EdgeInsets.all(8.0),
                 child: Text('Forgot Password?'),
               ),
             ),

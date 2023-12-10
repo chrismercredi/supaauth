@@ -32,6 +32,7 @@ class SupaAuthExample extends StatelessWidget {
       routes: {
         SignUpPage.routeName: (context) => const SignUpPage(),
         LoginPage.routeName: (context) => const LoginPage(),
+        ForgotPasswordPage.routeName: (context) => const ForgotPasswordPage(),
       },
     );
   }
