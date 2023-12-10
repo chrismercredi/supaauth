@@ -1,5 +1,5 @@
 name: supaauth
-version: 0.0.1-alpha.1
+version: 0.0.2-alpha.1
 description: "A basic SupaBase auth package"
 homepage: https://github.com/chrismercredi
 repository: https://github.com/chrismercredi/supaauth
