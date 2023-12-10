@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gap/gap.dart';
 
 import '../src.dart';
 
@@ -17,31 +18,58 @@ class LoginPage extends StatelessWidget {
       ),
       body: Center(
         child: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              ListTile(
-                title: const Text('Login Page'),
-                subtitle: const Text('Login to your account'),
-                trailing:
-                    TextButton(onPressed: () {}, child: const Text('Sign Up')),
-              ),
-              BlocConsumer<SupabaseAuthCubit, SupabaseAuthState>(
-                listener: (context, state) {
-                  if (state is SupabaseAuthError) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text(state.message)),
-                    );
-                  }
-                },
-                builder: (context, state) {
-                  if (state is SupabaseAuthLoading) {
-                    return const CircularProgressIndicator();
-                  }
-                  return const LoginForm();
-                },
-              ),
-            ],
+          child: Padding(
+            padding: Theme.of(context).formColumnPadding,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text('Login'),
+                        Text('Login to your account'),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        TextButton(
+                          onPressed: () {
+                            Navigator.of(context)
+                                .pushNamed(SignUpPage.routeName);
+                          },
+                          style: Theme.of(context).blackTextButtonStyle(),
+                          child: const Padding(
+                            padding: EdgeInsets.all(16.0),
+                            child: Text('Sign up?'),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+                const Gap(16),
+                BlocConsumer<SupabaseAuthCubit, SupabaseAuthState>(
+                  listener: (context, state) {
+                    if (state is SupabaseAuthError) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(content: Text(state.message)),
+                      );
+                    }
+                  },
+                  builder: (context, state) {
+                    if (state is SupabaseAuthLoading) {
+                      return const CircularProgressIndicator();
+                    }
+                    return const LoginForm();
+                  },
+                ),
+              ],
+            ),
           ),
         ),
       ),

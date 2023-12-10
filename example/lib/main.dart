@@ -13,7 +13,11 @@ void main() async {
     anonKey: supabaseAnonKey,
   );
 
-  runApp(const SupaAuthExample());
+  runApp(
+    const SupauthWrapper(
+      child: SupaAuthExample(),
+    ),
+  );
 }
 
 class SupaAuthExample extends StatelessWidget {
@@ -21,11 +25,14 @@ class SupaAuthExample extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       title: 'Supabase Auth Example',
-      home: AuthWrapper(
-        child: HomePage(),
-      ),
+      home: const HomePage(),
+      initialRoute: '/',
+      routes: {
+        SignUpPage.routeName: (context) => const SignUpPage(),
+        LoginPage.routeName: (context) => const LoginPage(),
+      },
     );
   }
 }

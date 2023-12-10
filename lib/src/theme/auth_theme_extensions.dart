@@ -68,7 +68,9 @@ extension AuthThemeExtensions on ThemeData {
       foregroundColor: Colors.white,
       backgroundColor: Colors.black, // Text color
       shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.zero, // Square corners
+        borderRadius: BorderRadius.all(
+          Radius.circular(8.0),
+        ),
       ),
     );
   }
@@ -78,7 +80,9 @@ extension AuthThemeExtensions on ThemeData {
     return TextButton.styleFrom(
       foregroundColor: Colors.black,
       shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.zero, // Square corners
+        borderRadius: BorderRadius.all(
+          Radius.circular(8.0),
+        ), // Square corners
       ), // Text color
     );
   }

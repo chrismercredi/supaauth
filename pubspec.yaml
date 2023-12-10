@@ -4,6 +4,9 @@ version: 0.0.1
 homepage: https://github.com/chrismercredi
 publish_to: 
 
+# Use this command to run in GitHub codespace:
+# flutter run -d web-server --web-hostname=0.0.0.0 --web-port=3000
+
 environment:
   sdk: '>=3.2.3 <4.0.0'
   flutter: ">=1.17.0"

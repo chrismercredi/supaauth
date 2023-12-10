@@ -77,7 +77,10 @@ class LoginFormState extends State<LoginForm> {
             child: ElevatedButton(
               onPressed: _isLoading ? null : _login,
               style: Theme.of(context).blackSquareButtonStyle(),
-              child: Text(_isLoading ? 'Loading' : 'Login'),
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Text(_isLoading ? 'Loading' : 'Login'),
+              ),
             ),
           ),
           const Gap(8),
@@ -88,7 +91,10 @@ class LoginFormState extends State<LoginForm> {
                 Navigator.of(context).pushNamed('/forgot-password-page');
               },
               style: Theme.of(context).blackTextButtonStyle(),
-              child: const Text('Forgot Password?'),
+              child: const Padding(
+                padding: EdgeInsets.all(16.0),
+                child: Text('Forgot Password?'),
+              ),
             ),
           ),
         ],

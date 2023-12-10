@@ -4,8 +4,8 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../src.dart';
 
-class AuthWrapper extends StatelessWidget {
-  const AuthWrapper({super.key, required this.child});
+class SupauthWrapper extends StatelessWidget {
+  const SupauthWrapper({super.key, required this.child});
 
   final Widget child;
 
