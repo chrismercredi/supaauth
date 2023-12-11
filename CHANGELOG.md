@@ -2,7 +2,6 @@
 
 ### Fixed
 - Document public members.
-- SDK changed to 3.16.3 from 3.2
 
 ## 0.1.0-alpha.1
 
