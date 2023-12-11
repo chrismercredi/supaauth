@@ -13,11 +13,14 @@ import '../src.dart';
 /// related widgets like `AuthHeader`, `AuthSVGImage`, `AuthPrompt`, and `LoginForm`.
 /// It also provides a link to the sign-up page and the forgot password page.
 class LoginPage extends StatelessWidget {
+  /// The route name to navigate to after successful login.
+  final String successRoute;
+
   /// Creates a [LoginPage] widget.
   ///
   /// This widget is typically used in the context of navigation, where it can be
   /// routed to via [routeName].
-  const LoginPage({super.key});
+  const LoginPage({super.key, required this.successRoute});
 
   /// The route name for navigating to the login page.
   static const String routeName = '/login-page';
@@ -51,7 +54,12 @@ class LoginPage extends StatelessWidget {
                 const Gap(16),
                 BlocConsumer<SupabaseAuthCubit, SupabaseAuthState>(
                   listener: (context, state) {
-                    if (state is SupabaseAuthError) {
+                    if (state is SupabaseAuthAuthenticated) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(content: Text('Login successful')),
+                      );
+                      Navigator.of(context).pushReplacementNamed(successRoute);
+                    } else if (state is SupabaseAuthError) {
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(content: Text(state.message)),
                       );

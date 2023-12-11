@@ -48,10 +48,12 @@ class _ForgotPasswordFormState extends State<ForgotPasswordForm> {
       setState(() => _isLoading = true);
       context
           .read<SupabaseAuthCubit>()
-          .resetPasswordForEmail(
-            _emailController.text.trim(),
-          )
-          .whenComplete(() => setState(() => _isLoading = false));
+          .resetPasswordForEmail(_emailController.text.trim())
+          .whenComplete(() {
+        if (mounted) {
+          setState(() => _isLoading = false);
+        }
+      });
     }
   }
 

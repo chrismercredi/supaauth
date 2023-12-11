@@ -49,9 +49,7 @@ class SignUpFormState extends State<SignUpForm> {
   /// Validates the form and, if valid, performs a sign-up operation.
   void _signUp() {
     if (_formKey.currentState!.validate()) {
-      setState(() {
-        _isLoading = true;
-      });
+      setState(() => _isLoading = true);
       context
           .read<SupabaseAuthCubit>()
           .signUp(
@@ -59,9 +57,9 @@ class SignUpFormState extends State<SignUpForm> {
             _passwordController.text.trim(),
           )
           .then((_) {
-        setState(() {
-          _isLoading = false;
-        });
+        if (mounted) {
+          setState(() => _isLoading = false);
+        }
       });
     }
   }

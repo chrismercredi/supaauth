@@ -1,3 +1,11 @@
+## 0.2.0-alpha.1
+
+### Fixed
+- Added comprehensive DartDoc comments to public members across all components, ensuring better code documentation and maintainability.
+- Enhanced various UI components and screens with snack bars for providing user feedback on successful or failed operations.
+- Updated the SupabaseAuthCubit and corresponding repository logic to handle the password recovery flow more effectively.
+- Provided an updated example demonstrating how to use SupabaseAuthCubit with the navigator for handling the recovery flow and authentication state navigation.
+
 ## 0.1.1-alpha.1
 
 ### Fixed

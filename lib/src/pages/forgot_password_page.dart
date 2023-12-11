@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 
 import '../src.dart';
@@ -31,26 +32,45 @@ class ForgotPasswordPage extends StatelessWidget {
         child: SingleChildScrollView(
           child: Padding(
             padding: Theme.of(context).formColumnPadding,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const AuthHeader(title: 'Forgot Password'),
-                const Gap(24),
-                const AuthSVGImage(
-                  assetName: 'assets/svg/undraw_forgot_password_re_hxwm.svg',
-                ),
-                const Gap(24),
-                const AuthPrompt(
-                  description: '''It happens. We'll help you reset it.''',
-                ),
-                const Gap(24),
-                const ForgotPasswordForm(),
-                const Gap(8),
-                AuthTextButton(
-                  text: 'Cancel',
-                  onPressed: () => Navigator.of(context).pop(),
-                ),
-              ],
+            child: BlocConsumer<SupabaseAuthCubit, SupabaseAuthState>(
+              listener: (context, state) {
+                if (state is SupabaseAuthPasswordReset) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text(state.message)),
+                  );
+                } else if (state is SupabaseAuthError) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text(state.message)),
+                  );
+                }
+              },
+              builder: (context, state) {
+                if (state is SupabaseAuthLoading) {
+                  return const CircularProgressIndicator();
+                }
+                return Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const AuthHeader(title: 'Forgot Password'),
+                    const Gap(24),
+                    const AuthSVGImage(
+                      assetName:
+                          'assets/svg/undraw_forgot_password_re_hxwm.svg',
+                    ),
+                    const Gap(24),
+                    const AuthPrompt(
+                      description: '''It happens. We'll help you reset it.''',
+                    ),
+                    const Gap(24),
+                    const ForgotPasswordForm(),
+                    const Gap(8),
+                    AuthTextButton(
+                      text: 'Cancel',
+                      onPressed: () => Navigator.of(context).pop(),
+                    ),
+                  ],
+                );
+              },
             ),
           ),
         ),

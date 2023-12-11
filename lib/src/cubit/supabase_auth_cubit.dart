@@ -40,11 +40,15 @@ class SupabaseAuthCubit extends Cubit<SupabaseAuthState> {
 
     _authSubscription = supabaseRepository.onAuthStateChange.listen(
       (AuthState state) {
-        final user = state.session?.user;
-        if (user != null) {
-          emit(SupabaseAuthAuthenticated(user));
+        if (state.event == AuthChangeEvent.passwordRecovery) {
+          emit(SupabaseAuthStatePasswordRecovery());
         } else {
-          emit(SupabaseAuthUnauthenticated());
+          final user = state.session?.user;
+          if (user != null) {
+            emit(SupabaseAuthAuthenticated(user));
+          } else {
+            emit(SupabaseAuthUnauthenticated());
+          }
         }
       },
       onError: (error) {
@@ -126,6 +130,38 @@ class SupabaseAuthCubit extends Cubit<SupabaseAuthState> {
           'Password reset email sent to $email. Please check your inbox.'));
     } catch (e) {
       emit(SupabaseAuthError('Password reset failed: ${e.toString()}'));
+    }
+  }
+
+  /// Triggers the password update state for modal sheets or user interactions.
+  void showUpdatePassword() {
+    emit(SupabaseAuthUpdatePassword());
+  }
+
+  /// Handles the password update process with the given [newPassword] and optional [nonce].
+  /// Emits loading state during the process, and appropriate state upon completion or error.
+  Future<void> updatePassword(String newPassword, {String? nonce}) async {
+    try {
+      emit(SupabaseAuthLoading());
+      await supabaseRepository.updateUserPassword(
+          newPassword: newPassword, nonce: nonce);
+      emit(const SupabaseAuthPasswordUpdated('Password updated successfully'));
+    } catch (e) {
+      emit(SupabaseAuthError('Password update failed: ${e.toString()}'));
+    }
+  }
+
+  /// Sends a reauthentication nonce to the user's email or phone number.
+  /// Emits loading state during the process, and appropriate state upon completion or error.
+  Future<void> sendReauthenticationNonce() async {
+    try {
+      emit(SupabaseAuthLoading());
+      await supabaseRepository.sendReauthenticationNonce();
+      emit(const SupabaseAuthPasswordReset(
+          'Reauthentication nonce sent. Please check your email.'));
+    } catch (e) {
+      emit(SupabaseAuthError(
+          'Failed to send reauthentication nonce: ${e.toString()}'));
     }
   }
 

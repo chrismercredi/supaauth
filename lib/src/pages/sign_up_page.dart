@@ -59,6 +59,7 @@ class SignUpPage extends StatelessWidget {
                     return const SignUpForm();
                   },
                 ),
+                const Gap(8),
                 AuthTextButton(
                   text: 'Cancel',
                   onPressed: () => Navigator.of(context).pop(),

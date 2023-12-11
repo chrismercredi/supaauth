@@ -9,7 +9,7 @@ abstract class SupabaseAuthState extends Equatable {
   const SupabaseAuthState();
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
 /// Represents the initial state of authentication.
@@ -73,6 +73,25 @@ class SupabaseAuthPasswordReset extends SupabaseAuthState {
   final String message;
 
   const SupabaseAuthPasswordReset(this.message);
+
+  @override
+  List<Object> get props => [message];
+}
+
+/// State indicating a password recovery operation.
+///
+/// Emitted when the application detects a password recovery event.
+/// Could carry necessary data like a recovery token if applicable.
+class SupabaseAuthStatePasswordRecovery extends SupabaseAuthState {}
+
+/// State indicating the start of the password update process.
+class SupabaseAuthUpdatePassword extends SupabaseAuthState {}
+
+/// State indicating the successful completion of the password update process.
+class SupabaseAuthPasswordUpdated extends SupabaseAuthState {
+  final String message;
+
+  const SupabaseAuthPasswordUpdated(this.message);
 
   @override
   List<Object> get props => [message];
