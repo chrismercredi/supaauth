@@ -4,7 +4,13 @@ import 'package:gap/gap.dart';
 
 import '../../src.dart';
 
+/// A form widget used for user login.
+///
+/// This widget provides a form where users can enter their email and password
+/// for logging into the application. It uses [FormRegex] for validation and
+/// [SupabaseAuthCubit] for handling the login functionality.
 class LoginForm extends StatefulWidget {
+  /// Creates a [LoginForm] widget.
   const LoginForm({super.key});
 
   @override
@@ -35,6 +41,10 @@ class LoginFormState extends State<LoginForm> {
     super.dispose();
   }
 
+  /// Handles the login logic when the login button is pressed.
+  ///
+  /// Validates the form fields and, if valid, initiates a login process
+  /// via the [SupabaseAuthCubit].
   void _login() {
     if (_formKey.currentState!.validate()) {
       context.read<SupabaseAuthCubit>().signIn(

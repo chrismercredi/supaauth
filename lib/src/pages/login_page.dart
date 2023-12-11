@@ -4,9 +4,22 @@ import 'package:gap/gap.dart';
 
 import '../src.dart';
 
+/// A page widget for handling user login.
+///
+/// This page provides a user interface for users to log into the application. It includes
+/// form fields for user input and uses [SupabaseAuthCubit] for managing authentication state.
+///
+/// The `LoginPage` is structured with a scaffold that includes various authentication
+/// related widgets like `AuthHeader`, `AuthSVGImage`, `AuthPrompt`, and `LoginForm`.
+/// It also provides a link to the sign-up page and the forgot password page.
 class LoginPage extends StatelessWidget {
+  /// Creates a [LoginPage] widget.
+  ///
+  /// This widget is typically used in the context of navigation, where it can be
+  /// routed to via [routeName].
   const LoginPage({super.key});
 
+  /// The route name for navigating to the login page.
   static const String routeName = '/login-page';
 
   @override
@@ -52,14 +65,11 @@ class LoginPage extends StatelessWidget {
                   },
                 ),
                 const Gap(8),
-                SizedBox(
-                  width: double.infinity,
-                  child: AuthTextButton(
-                    text: 'Forgot Password?',
-                    onPressed: () {
-                      Navigator.of(context).pushNamed('/forgot-password-page');
-                    },
-                  ),
+                AuthTextButton(
+                  text: 'Forgot Password?',
+                  onPressed: () {
+                    Navigator.of(context).pushNamed('/forgot-password-page');
+                  },
                 ),
               ],
             ),

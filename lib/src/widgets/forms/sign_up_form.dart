@@ -121,13 +121,10 @@ class SignUpFormState extends State<SignUpForm> {
           ),
           const Gap(24),
           // Sign up button
-          SizedBox(
-            width: double.infinity,
-            child: ElevatedButton(
-              onPressed: _isLoading ? null : _signUp,
-              style: Theme.of(context).blackSquareButtonStyle(),
-              child: Text(_isLoading ? 'Signing Up...' : 'Sign Up'),
-            ),
+          AuthButton(
+            isLoading: _isLoading,
+            buttonText: _isLoading ? 'Signing Up...' : 'Sign Up',
+            onPressed: _signUp,
           ),
         ],
       ),

@@ -1,4 +1,10 @@
-## 0.0.2-alpha.1
+## 0.1.1-alpha.1
+
+### Fixed
+- Document public members.
+- SDK changed to 3.16.3 from 3.2
+
+## 0.1.0-alpha.1
 
 ### Added
 - Created reusable UI components for authentication screens, including `AuthHeader`, `AuthSVGImage`, `AuthPrompt`, `AuthTextButton`, and `AuthButton`.

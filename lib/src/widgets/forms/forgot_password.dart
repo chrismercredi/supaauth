@@ -4,7 +4,13 @@ import 'package:gap/gap.dart';
 
 import '../../src.dart';
 
+/// A form widget used in the forgot password process.
+///
+/// This widget provides a form where users can enter their email address to
+/// initiate a password reset process. It uses [FormRegex.authValidateEmail]
+/// for email validation and [SupabaseAuthCubit] to handle the reset password functionality.
 class ForgotPasswordForm extends StatefulWidget {
+  /// Creates a [ForgotPasswordForm] widget.
   const ForgotPasswordForm({Key? key}) : super(key: key);
 
   @override
@@ -17,7 +23,7 @@ class _ForgotPasswordFormState extends State<ForgotPasswordForm> {
   // Text editing controller for email field
   late final TextEditingController _emailController = TextEditingController();
   // State to manage loading status during password reset
-  final bool _isLoading = false;
+  bool _isLoading = false;
 
   @override
   void initState() {
@@ -33,6 +39,22 @@ class _ForgotPasswordFormState extends State<ForgotPasswordForm> {
     super.dispose();
   }
 
+  /// Handles the logic for password reset when the form is submitted.
+  ///
+  /// Validates the email field and, if valid, triggers the password reset process
+  /// via the [SupabaseAuthCubit]. Also manages the loading state during the process.
+  void _submit() {
+    if (_formKey.currentState!.validate()) {
+      setState(() => _isLoading = true);
+      context
+          .read<SupabaseAuthCubit>()
+          .resetPasswordForEmail(
+            _emailController.text.trim(),
+          )
+          .whenComplete(() => setState(() => _isLoading = false));
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -41,8 +63,7 @@ class _ForgotPasswordFormState extends State<ForgotPasswordForm> {
         children: [
           TextFormField(
             controller: _emailController,
-            validator: (value) =>
-                FormRegex.authValidateEmail(_emailController.text),
+            validator: (value) => FormRegex.authValidateEmail(value),
             style: Theme.of(context).emailTextStyle(),
             cursorColor: Theme.of(context).emailCursorColor,
             cursorWidth: Theme.of(context).emailCursorWidth,
@@ -52,13 +73,7 @@ class _ForgotPasswordFormState extends State<ForgotPasswordForm> {
           AuthButton(
             isLoading: _isLoading,
             buttonText: 'Reset Password',
-            onPressed: () {
-              if (_formKey.currentState!.validate()) {
-                context.read<SupabaseAuthCubit>().resetPasswordForEmail(
-                      _emailController.text.trim(),
-                    );
-              }
-            },
+            onPressed: _submit,
           ),
         ],
       ),

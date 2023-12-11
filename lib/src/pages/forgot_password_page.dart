@@ -3,9 +3,23 @@ import 'package:gap/gap.dart';
 
 import '../src.dart';
 
+/// A page widget for handling the 'Forgot Password' functionality.
+///
+/// This page provides a user interface for users to reset their password. It includes
+/// a form for entering the email address associated with the user's account and
+/// uses the `ForgotPasswordForm` widget for input and validation.
+///
+/// The `ForgotPasswordPage` is structured with a scaffold that includes an AppBar,
+/// `AuthHeader`, `AuthSVGImage`, `AuthPrompt`, and the `ForgotPasswordForm`.
+/// It also provides a cancel button to return to the previous screen.
 class ForgotPasswordPage extends StatelessWidget {
+  /// Creates a [ForgotPasswordPage] widget.
+  ///
+  /// This widget is typically used in the context of navigation, where it can be
+  /// routed to via [routeName].
   const ForgotPasswordPage({super.key});
 
+  /// The route name for navigating to the forgot password page.
   static const String routeName = '/forgot-password-page';
 
   @override

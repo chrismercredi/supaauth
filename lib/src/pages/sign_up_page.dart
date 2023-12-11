@@ -4,9 +4,21 @@ import 'package:gap/gap.dart';
 
 import '../src.dart';
 
+/// A page widget for handling user sign-up.
+///
+/// This page provides a user interface for signing up to the application. It includes
+/// form fields for user input and uses [SupabaseAuthCubit] for managing authentication state.
+///
+/// The `SignUpPage` is structured with a scaffold that includes various authentication
+/// related widgets like `AuthHeader`, `AuthSVGImage`, `AuthPrompt`, and `SignUpForm`.
 class SignUpPage extends StatelessWidget {
+  /// Creates a [SignUpPage] widget.
+  ///
+  /// This widget is typically used in the context of navigation, where it can be
+  /// routed to via [routeName].
   const SignUpPage({super.key});
 
+  /// The route name for navigating to the sign-up page.
   static const String routeName = '/sign-up-page';
 
   @override
@@ -20,7 +32,7 @@ class SignUpPage extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const AuthHeader(title: 'Sign up!'),
+                const AuthHeader(title: 'Sign Up'),
                 const Gap(36),
                 const AuthSVGImage(
                   assetName: 'assets/svg/undraw_sign_up_n6im.svg',
@@ -37,7 +49,7 @@ class SignUpPage extends StatelessWidget {
                         SnackBar(content: Text(state.message)),
                       );
                     } else if (state is SupabaseAuthAuthenticated) {
-                      Navigator.of(context).pop(); // Example action
+                      Navigator.of(context).pop();
                     }
                   },
                   builder: (context, state) {
