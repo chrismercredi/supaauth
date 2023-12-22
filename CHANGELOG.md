@@ -1,3 +1,7 @@
+Package is being discontinued as the folks as Supabase did it bettter here: 
+
+https://pub.dev/packages/supabase_auth_ui
+
 ## 0.2.0-alpha.1
 
 ### Fixed
